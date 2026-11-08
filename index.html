@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drishti Dangle</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Top mount clamp sticking to the top bezel -->
+  <div class="top-mount" id="topMount" title="Drag to reposition along top edge">
+    <div class="mount-plate"></div>
+    <div class="mount-loop"></div>
+  </div>
+
+  <!-- Pendulum arm rooted at top center -->
+  <div class="pendulum-anchor" id="pendulumAnchor">
+    <!-- Hanging cord -->
+    <div class="hanging-cord" id="hangingCord">
+      <svg class="cord-svg" viewBox="0 0 10 75" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="ropeGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#3d2314"/>
+            <stop offset="40%" stop-color="#b8860b"/>
+            <stop offset="60%" stop-color="#d4af37"/>
+            <stop offset="100%" stop-color="#2a160a"/>
+          </linearGradient>
+          <pattern id="braid" width="6" height="8" patternUnits="userSpaceOnUse">
+            <line x1="1" y1="0" x2="5" y2="4" stroke="#c0392b" stroke-width="1.2"/>
+            <line x1="5" y1="4" x2="1" y2="8" stroke="#f1c40f" stroke-width="1.2"/>
+            <line x1="1" y1="4" x2="5" y2="8" stroke="#111" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <!-- Main string line -->
+        <line x1="5" y1="0" x2="5" y2="75" stroke="url(#ropeGrad)" stroke-width="3.5" stroke-linecap="round"/>
+        <rect x="3" y="0" width="4" height="75" fill="url(#braid)" opacity="0.8"/>
+        <!-- Small knot bead -->
+        <circle cx="5" cy="72" r="3.5" fill="#e74c3c" stroke="#f39c12" stroke-width="1"/>
+      </svg>
+    </div>
+
+    <!-- Interactive Bommai mask body -->
+    <div class="bommai-container" id="bommai">
+      <img src="assets/drishti-bommai.svg" alt="Drishti Bommai" id="bommaiImg" draggable="false" />
+      <div class="hover-glow" id="hoverGlow"></div>
+    </div>
+  </div>
+
+  <!-- Context Menu for Bommai on right click -->
+  <div class="context-menu" id="contextMenu">
+    <div class="menu-item" id="menuNextCharm">🎨 Next Charm</div>
+    <div class="menu-item" id="menuSettings">⚙️ Settings</div>
+    <div class="menu-separator"></div>
+    <div class="menu-item" id="menuLeft">⬅️ Move Left</div>
+    <div class="menu-item" id="menuCenter">⏺️ Center</div>
+    <div class="menu-item" id="menuRight">➡️ Move Right</div>
+    <div class="menu-separator"></div>
+    <div class="menu-item" id="menuHide">👁️ Hide Drishti</div>
+    <div class="menu-item text-danger" id="menuQuit">❌ Quit</div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+{
+  "name": "drishti-dangle",
+  "version": "1.0.0",
+  "description": "A traditional Indian Drishti Bommai screen charm hanging from your display.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win",
+    "dist:portable": "electron-builder --win portable",
+    "dist:dir": "electron-builder --dir"
+  },
+  "keywords": [
+    "drishti",
+    "bommai",
+    "desktop-pet",
+    "screen-charm",
+    "electron",
+    "windows"
+  ],
+  "author": "Drishti Dangle",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^34.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.drishtidangle.app",
+    "productName": "Drishti Dangle",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        },
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer.js",
+      "index.html",
+      "style.css",
+      "settings.html",
+      "settings.js",
+      "assets/**/*"
+    ]
+  }
+}

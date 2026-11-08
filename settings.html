@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drishti Dangle - Settings</title>
+  <style>
+    :root {
+      --bg-color: #121318;
+      --card-bg: #1a1c24;
+      --card-border: #2c2f3d;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent-gold: #f59e0b;
+      --accent-gold-hover: #d97706;
+      --accent-saffron: #ea580c;
+      --danger: #ef4444;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      padding: 24px;
+      overflow-y: auto;
+    }
+
+    /* HEADER */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--card-border);
+      margin-bottom: 24px;
+    }
+
+    .header-logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: #1e1e24;
+      padding: 4px;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+    }
+
+    .header-title h1 {
+      font-size: 19px;
+      font-weight: 600;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-title p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* SETTINGS CARD */
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 18px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    }
+
+    .card-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-gold);
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    /* ROW CONTROLS */
+    .setting-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+    }
+
+    .setting-row:not(:last-child) {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .setting-info {
+      flex: 1;
+      padding-right: 16px;
+    }
+
+    .setting-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-main);
+    }
+
+    .setting-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* TOGGLE SWITCH */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #374151;
+      transition: 0.25s;
+      border-radius: 24px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.25s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: var(--accent-gold);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+
+    /* RANGE SLIDERS */
+    .slider-row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 12px 0;
+    }
+
+    .slider-row:not(:last-child) {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+    }
+
+    .slider-value {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent-gold);
+      background: rgba(245, 158, 11, 0.12);
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: #374151;
+      outline: none;
+      margin: 6px 0;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent-gold);
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+      transition: transform 0.15s ease, background-color 0.15s;
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+      background: #fbbf24;
+    }
+
+    /* POSITION SEGMENTED BUTTONS */
+    .segmented-control {
+      display: flex;
+      background: #111217;
+      padding: 4px;
+      border-radius: 10px;
+      border: 1px solid var(--card-border);
+      gap: 4px;
+      width: 100%;
+    }
+
+    .segment-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 500;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .segment-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .segment-btn.active {
+      background: var(--accent-gold);
+      color: #121318;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+    }
+
+    /* CHARM SELECTOR GRID */
+    .charm-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .charm-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 12px 8px;
+      background: #14161e;
+      border: 2px solid var(--card-border);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .charm-card:hover {
+      border-color: rgba(245, 158, 11, 0.5);
+      background: #1a1d29;
+      transform: translateY(-2px);
+    }
+
+    .charm-card.active {
+      border-color: var(--accent-gold);
+      background: rgba(245, 158, 11, 0.1);
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.25);
+    }
+
+    .charm-preview {
+      width: 52px;
+      height: 62px;
+      object-fit: contain;
+      margin-bottom: 6px;
+      filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.4));
+    }
+
+    .charm-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .charm-card.active .charm-name {
+      color: var(--accent-gold);
+    }
+
+    .charm-tag {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* FOOTER */
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      padding-top: 14px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .hint {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+    }
+
+    .btn-reset {
+      background: transparent;
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 6px 12px;
+      font-size: 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-reset:hover {
+      color: var(--danger);
+      border-color: var(--danger);
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="assets/drishti-bommai.svg" class="header-logo" alt="Logo" id="headerLogo">
+    <div class="header-title">
+      <h1>Drishti Dangle</h1>
+      <p>Protective Indian Talisman for your Screen</p>
+    </div>
+  </div>
+
+  <!-- CHARM DESIGN SELECTOR -->
+  <div class="card">
+    <div class="card-title">Charm Design</div>
+    <div class="charm-grid">
+      <div class="charm-card active" data-charm="classic" id="charmCard-classic">
+        <img src="assets/charm-classic.svg" class="charm-preview" alt="Classic Black">
+        <div class="charm-name">Classic Black</div>
+        <div class="charm-tag">Traditional Mask</div>
+      </div>
+      <div class="charm-card" data-charm="terracotta" id="charmCard-terracotta">
+        <img src="assets/charm-terracotta.svg" class="charm-preview" alt="Terracotta">
+        <div class="charm-name">Terracotta</div>
+        <div class="charm-tag">Temple Guardian</div>
+      </div>
+      <div class="charm-card" data-charm="gold" id="charmCard-gold">
+        <img src="assets/charm-gold.svg" class="charm-preview" alt="Royal Gold">
+        <div class="charm-name">Royal Gold</div>
+        <div class="charm-tag">Swarna Talisman</div>
+      </div>
+      <div class="charm-card" data-charm="chibi" id="charmCard-chibi">
+        <img src="assets/charm-chibi.svg" class="charm-preview" alt="Cute Chibi">
+        <div class="charm-name">Cute Chibi</div>
+        <div class="charm-tag">Playful Charm</div>
+      </div>
+      <div class="charm-card" data-charm="spiderman" id="charmCard-spiderman">
+        <img src="assets/charm-spiderman.svg" class="charm-preview" alt="Spider-Man">
+        <div class="charm-name">Spider-Man</div>
+        <div class="charm-tag">Web-Slinger</div>
+      </div>
+      <div class="charm-card" data-charm="batman" id="charmCard-batman">
+        <img src="assets/charm-batman.svg" class="charm-preview" alt="Batman">
+        <div class="charm-name">Batman</div>
+        <div class="charm-tag">The Dark Knight</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOTION & PHYSICS -->
+  <div class="card">
+    <div class="card-title">Motion &amp; Physics</div>
+
+    <div class="setting-row">
+      <div class="setting-info">
+        <div class="setting-label">Enable Swing Animation</div>
+        <div class="setting-desc">Simulate realistic pendulum sway and physics</div>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="animationEnabled" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="slider-row">
+      <div class="slider-header">
+        <span class="setting-label">Swing Intensity</span>
+        <span class="slider-value" id="intensityVal">1.0x</span>
+      </div>
+      <input type="range" id="swingIntensity" min="0.2" max="2.2" step="0.1" value="1.0">
+      <div class="setting-desc">Controls responsiveness and swing amplitude</div>
+    </div>
+
+    <div class="slider-row">
+      <div class="slider-header">
+        <span class="setting-label">Animation Speed</span>
+        <span class="slider-value" id="speedVal">1.0x</span>
+      </div>
+      <input type="range" id="animationSpeed" min="0.4" max="2.0" step="0.1" value="1.0">
+      <div class="setting-desc">Controls pendulum frequency and oscillation speed</div>
+    </div>
+  </div>
+
+  <!-- DISPLAY & POSITION -->
+  <div class="card">
+    <div class="card-title">Placement &amp; Visuals</div>
+
+    <div class="slider-row" style="border-bottom: none;">
+      <div class="setting-label" style="margin-bottom: 6px;">Hanging Position</div>
+      <div class="segmented-control">
+        <button class="segment-btn" data-pos="left" id="btnPosLeft">⬅️ Left</button>
+        <button class="segment-btn active" data-pos="center" id="btnPosCenter">⏺️ Center</button>
+        <button class="segment-btn" data-pos="right" id="btnPosRight">➡️ Right</button>
+      </div>
+      <div class="setting-desc" style="margin-top: 6px;">You can also grab and drag the Bommai directly along the screen edge!</div>
+    </div>
+
+    <div class="setting-row">
+      <div class="setting-info">
+        <div class="setting-label">Show Hanging String</div>
+        <div class="setting-desc">Display traditional braided cord connected to screen bezel</div>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="showString" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <!-- SYSTEM PREFERENCES -->
+  <div class="card">
+    <div class="card-title">System</div>
+
+    <div class="setting-row">
+      <div class="setting-info">
+        <div class="setting-label">Start with Windows</div>
+        <div class="setting-desc">Automatically hang Drishti Bommai on system login</div>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="startWithWindows">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="hint">💡 Right-click the Bommai for quick menu</div>
+    <button class="btn-reset" id="btnReset">Reset to Defaults</button>
+  </div>
+
+  <script src="settings.js"></script>
+</body>
+</html>
